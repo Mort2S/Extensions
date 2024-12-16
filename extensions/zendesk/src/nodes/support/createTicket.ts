@@ -24,6 +24,7 @@ export interface ICreateTicketParams extends INodeFunctionBaseParams {
 		customFields: string;
 		addTags: boolean;
 		tags: string;
+		isPublic: boolean;
 	};
 }
 export const createTicketNode = createNodeDescriptor({
@@ -85,6 +86,19 @@ export const createTicketNode = createNodeDescriptor({
 			params: {
 				required: true
 			}
+		},
+		{
+			key: "isPublic",
+			label: {
+				default: "Public",
+				deDE: "Öffentlich"
+			},
+			type: "toggle",
+			description: {
+				default: "If the description is public",
+				deDE: "Ob die Beschreibung öffentlich ist"
+			},
+			defaultValue: true
 		},
 		{
 			key: "priority",
@@ -367,6 +381,7 @@ export const createTicketNode = createNodeDescriptor({
 	form: [
 		{ type: "field", key: "connection" },
 		{ type: "field", key: "subject" },
+		{ type: "field", key: "isPublic"}
 		{ type: "field", key: "description" },
 		{ type: "field", key: "priority" },
 		{ type: "section", key: "requesterInformation"},
@@ -378,13 +393,14 @@ export const createTicketNode = createNodeDescriptor({
 	},
 	function: async ({ cognigy, config }: ICreateTicketParams) => {
 		const { api } = cognigy;
-		const { connection, description, priority, subject, specifyRequester, requesterName, requesterEmail, requesterLocaleId, specifyBrand, brandId, useCustomFields, customFields, addTags, tags, storeLocation, contextKey, inputKey } = config;
+		const { connection, description, priority, subject, specifyRequester, requesterName, requesterEmail, requesterLocaleId, specifyBrand, brandId, useCustomFields, customFields, addTags, tags, storeLocation, contextKey, inputKey, isPublic } = config;
 		const { username, password, subdomain } = connection;
 
 		let data = {
 			ticket: {
 				comment: {
-					body: description
+					html_body: description,
+					public: isPublic
 				},
 				priority,
 				subject
