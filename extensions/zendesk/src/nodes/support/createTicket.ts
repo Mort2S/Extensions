@@ -24,9 +24,10 @@ export interface ICreateTicketParams extends INodeFunctionBaseParams {
 		customFields: string;
 		addTags: boolean;
 		tags: string;
-		isPublic: boolean;
+		isPublic: string;
 	};
 }
+
 export const createTicketNode = createNodeDescriptor({
 	type: "createTicket",
 	defaultLabel: {
@@ -55,376 +56,87 @@ export const createTicketNode = createNodeDescriptor({
 		},
 		{
 			key: "subject",
-			label: {
-				default: "Subject",
-				deDE: "Betreff",
-				esES: "Tema"
-			},
 			type: "cognigyText",
-			description: {
-				default: "The subject of the new support ticket",
-				deDE: "Der Betreff des neuen Tickets",
-				esES: "El tema del nuevo ticket de soporte"
-			},
-			params: {
-				required: true
-			}
+			params: { required: true }
 		},
 		{
 			key: "description",
-			label: {
-				default: "Description",
-				deDE: "Beschreibung",
-				esES: "Descripción"
-			},
 			type: "cognigyText",
-			description: {
-				default: "The description of the new support ticket",
-				deDE: "Die Beschreibung des neuen Tickets",
-				esES: "La descripción del nuevo ticket de soporte"
-			},
-			params: {
-				required: true
-			}
-		},
-		{
-			key: "isPublic",
-			label: {
-				default: "Public",
-				deDE: "Öffentlich"
-			},
-			type: "toggle",
-			description: {
-				default: "If the description is public",
-				deDE: "Ob die Beschreibung öffentlich ist"
-			},
-			defaultValue: true
+			params: { required: true }
 		},
 		{
 			key: "priority",
-			label: {
-				default: "Priority",
-				deDE: "Priorität",
-				esES: "Prioridad"
-			},
 			type: "select",
-			description: {
-				default: "The priority of the new support ticket",
-				deDE: "Die Priorität des neuen Tickets",
-				esES: "La prioridad del nuevo ticket de soporte"
-			},
 			defaultValue: "normal",
 			params: {
 				required: true,
 				options: [
-					{
-						label: "Normal",
-						value: "normal"
-					},
-					{
-						label: "High",
-						value: "high"
-					},
-					{
-						label: "Urgent",
-						value: "urgent"
-					}
+					{ label: "Normal", value: "normal" },
+					{ label: "High", value: "high" },
+					{ label: "Urgent", value: "urgent" }
 				]
 			}
 		},
 		{
-            key: "specifyRequester",
-            type: "toggle",
-            label: {
-                default: "Specify Requester Information",
-                deDE: "Requester information angeben",
-                esES: "Especificar información del solicitante"
-            },
-            description: {
-                default: "Specify requester information for a new or existing user",
-                deDE: "Ergänze Ticket mit Requesterinformation für einen neuen oder existierenden Nutzer",
-                esES: "Especifique la información del solicitante para un usuario nuevo o existente"
-            },
-            defaultValue: false
-        },
-		{
-            key: "requesterName",
-            label: {
-                default: "Name of requester",
-                deDE: "Name des Requesters",
-                esES: "Nombre del solicitante"
-            },
-            type: "cognigyText",
-            params: {
-                required: false,
-            }
-        },
-		{
-            key: "requesterEmail",
-            label: {
-                default: "Requester Email",
-                deDE: "Email des Requesters",
-                esES: "Correo electrónico del solicitante"
-            },
-            type: "cognigyText",
-            params: {
-                required: false,
-            }
-        },
-		{
-            key: "requesterLocaleId",
-            label: {
-                default: "Requester Locale ID",
-                deDE: "Locale ID des Requesters",
-                esES: "ID de configuración regional del solicitante"
-            },
-            type: "cognigyText",
-            params: {
-                required: false,
-            }
-        },
-		{
-            key: "specifyBrand",
-            type: "toggle",
-            label: {
-                default: "Specify Brand ID",
-                deDE: "Brand ID angeben",
-                esES: "Especificar ID de marca"
-            },
-            description: {
-                default: "Specify for which brand the ticket is being created.",
-                deDE: "Gebe an für welche Brand die Ticket erstellt worden ist.",
-                esES: "Especificar para qué marca se está creando el ticket."
-            },
-            defaultValue: false
-        },
-		{
-            key: "brandId",
-            label: {
-                default: "Brand ID",
-                deDE: "Brand ID",
-                esES: "Identificación de la marca"
-            },
-            type: "cognigyText",
-            params: {
-                required: false,
-            },
-			condition: {
-				key: "specifyBrand",
-				value: true
+			key: "isPublic",
+			type: "string",
+			label: {
+				default: "Public",
+				deDE: "Öffentlich"
+			},
+			description: {
+				default: "If the description is public",
+				deDE: "Ob die Beschreibung öffentlich ist"
+			},
+			params: {
+				required: false
 			}
-        },
-		{
-            key: "useCustomFields",
-            type: "toggle",
-            label: {
-                default: "Use Custom Fields",
-                deDE: "Custom Fields benutzen",
-                esES: "Usar campos personalizados"
-            },
-            description: {
-                default: "Add an array custom fields from your specific brand to your ticket.",
-                deDE: "Ergänze Ticket mit einem Custom-Fields-Array.",
-                esES: "Agregue campos personalizados de su marca específica a su ticket."
-            },
-            defaultValue: false
-        },
-		{
-            key: "customFields",
-            label: {
-                default: "Custom Fields",
-                deDE: "Custom Fields",
-                esES: "campos personalizados"
-            },
-            type: "json",
-            params: {
-                required: false,
-            },
-			defaultValue: [{"id": 12345678, "value": "loremipsum"}],
-			condition: {
-				key: "useCustomFields",
-				value: true
-			}
-        },
-		{
-            key: "addTags",
-            type: "toggle",
-            label: {
-                default: "Add tags",
-                deDE: "Tags ergänzen",
-                esES: "Agregar etiquetas"
-            },
-            description: {
-                default: "Add an array of tags to the ticket.",
-                deDE: "Ergänze Ticket mit einem Tags-Array.",
-                esES: "Agregue una serie de etiquetas al ticket."
-            },
-            defaultValue: false
-        },
-		{
-            key: "tags",
-            label: {
-                default: "Tags",
-                deDE: "Tags",
-                esES: "Etiquetas"
-            },
-            type: "json",
-            params: {
-                required: false,
-            },
-			defaultValue: ["enterprise", "other_tag"],
-			condition: {
-				key: "addTags",
-				value: true
-			}
-        },
+		},
 		{
 			key: "storeLocation",
 			type: "select",
-			label: {
-				default: "Where to store the result",
-				deDE: "Wo das Ergebnis gespeichert werden soll",
-				esES: "Dónde almacenar el resultado"
-			},
 			defaultValue: "input",
 			params: {
+				required: true,
 				options: [
-					{
-						label: "Input",
-						value: "input"
-					},
-					{
-						label: "Context",
-						value: "context"
-					}
-				],
-				required: true
-			},
-		},
-		{
-			key: "inputKey",
-			type: "cognigyText",
-            label: {
-                default: "Input Key to store Result",
-                deDE: "Input Key zum Speichern des Ergebnisses",
-                esES: "Input Key para almacenar el resultado"
-            },
-			defaultValue: "zendesk.ticket",
-			condition: {
-				key: "storeLocation",
-				value: "input",
+					{ label: "Input", value: "input" },
+					{ label: "Context", value: "context" }
+				]
 			}
 		},
 		{
 			key: "contextKey",
 			type: "cognigyText",
-            label: {
-                default: "Context Key to store Result",
-                deDE: "Context Key zum Speichern des Ergebnisses",
-                esES: "Context Key para almacenar el resultado"
-            },
 			defaultValue: "zendesk.ticket",
-			condition: {
-				key: "storeLocation",
-				value: "context",
-			}
-		},
-	],
-	sections: [
-		{
-			key: "requesterInformation",
-			label: {
-				default: "Requester Information",
-				deDE: "Requesterinformation",
-				esES: "Información del solicitante"
-			},
-			defaultCollapsed: true,
-			fields: [
-				"specifyRequester",
-				"requesterName",
-				"requesterEmail",
-				"requesterLocaleId",
-			]
+			condition: { key: "storeLocation", value: "context" }
 		},
 		{
-			key: "additionalOptions",
-			label: {
-				default: "Additional Ticket Options",
-				deDE: "Zusätzliche Ticketoptionen",
-				esES: "Opciones de ticket adicionales"
-			},
-			defaultCollapsed: true,
-			fields: [
-				"specifyBrand",
-				"brandId",
-				"useCustomFields",
-				"customFields",
-				"addTags",
-				"tags"
-			]
-		},
-		{
-			key: "storage",
-			label: {
-				default: "Storage Option",
-				deDE: "Speicheroption",
-				esES: "Opción de almacenamiento"
-			},
-			defaultCollapsed: true,
-			fields: [
-				"storeLocation",
-				"inputKey",
-				"contextKey",
-			]
+			key: "inputKey",
+			type: "cognigyText",
+			defaultValue: "zendesk.ticket",
+			condition: { key: "storeLocation", value: "input" }
 		}
-	],
-	form: [
-		{ type: "field", key: "connection" },
-		{ type: "field", key: "subject" },
-		{ type: "field", key: "isPublic"}
-		{ type: "field", key: "description" },
-		{ type: "field", key: "priority" },
-		{ type: "section", key: "requesterInformation"},
-		{ type: "section", key: "additionalOptions"},
-		{ type: "section", key: "storage" },
 	],
 	appearance: {
 		color: "#00363d"
 	},
 	function: async ({ cognigy, config }: ICreateTicketParams) => {
 		const { api } = cognigy;
-		const { connection, description, priority, subject, specifyRequester, requesterName, requesterEmail, requesterLocaleId, specifyBrand, brandId, useCustomFields, customFields, addTags, tags, storeLocation, contextKey, inputKey, isPublic } = config;
+		const { connection, description, priority, subject, isPublic, storeLocation, contextKey, inputKey } = config;
 		const { username, password, subdomain } = connection;
 
 		let data = {
 			ticket: {
 				comment: {
-					html_body: description,
-					public: isPublic
+					body: description,
+					public: isPublic || true
 				},
 				priority,
 				subject
 			}
 		};
-		if (specifyRequester === true) {
-			data.ticket["requester"] = {
-				"locale_id": requesterLocaleId,
-				"name": requesterName,
-				"email": requesterEmail
-			};
-		}
-		if (specifyBrand === true) {
-			data.ticket["brand_id"] = brandId;
-		}
-		if (useCustomFields === true) {
-			data.ticket["custom_fields"] = customFields;
-		}
-		if (addTags === true ) {
-			data.ticket["tags"] = tags;
-		}
 
 		try {
-
 			const response = await axios({
 				method: "post",
 				url: `https://${subdomain}.zendesk.com/api/v2/tickets`,
@@ -442,14 +154,12 @@ export const createTicketNode = createNodeDescriptor({
 			if (storeLocation === "context") {
 				api.addToContext(contextKey, response.data, "simple");
 			} else {
-				// @ts-ignore
 				api.addToInput(inputKey, response.data);
 			}
 		} catch (error) {
 			if (storeLocation === "context") {
 				api.addToContext(contextKey, { error: error.message }, "simple");
 			} else {
-				// @ts-ignore
 				api.addToInput(inputKey, { error: error.message });
 			}
 		}
