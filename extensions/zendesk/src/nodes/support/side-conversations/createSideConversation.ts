@@ -391,6 +391,7 @@ export const createSideConversationNode = createNodeDescriptor({
         } catch (error: any) {
             if (storeLocation === "context") {
                 api.addToContext(contextKey, { error: error.message }, "simple");
+                api.addToContext(contextKey, data, "simple");
             } else {
                 api.addToInput(inputKey, { error: error.message });
             }
