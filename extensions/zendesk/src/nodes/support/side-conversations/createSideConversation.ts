@@ -13,7 +13,7 @@ export interface ICreateSideConversationParams extends INodeFunctionBaseParams {
             subdomain: string;
         };
         apiTokenConnection: {
-            emailAddress: string;
+            emailAddress: string; // Verbindung: API-Token Email (für Authentifizierung)
             apiToken: string;
             subdomain: string;
         };
@@ -21,7 +21,7 @@ export interface ICreateSideConversationParams extends INodeFunctionBaseParams {
         subject: string;
         body: string;
         conversationType: string;
-        emailAddress: string;
+        scEmailAdress: string; // Side Conversation E-Mail-Adresse (statt "emailAddress")
         slackWorkspaceId: string;
         slackChannelId: string;
         supportGroupId: string;
@@ -155,10 +155,10 @@ export const createSideConversationNode = createNodeDescriptor({
             },
         },
         {
-            key: "emailAddress",
+            key: "scEmailAdress",
             label: {
-                default: "E-Mail Adresse",
-                deDE: "E-Mail Adresse",
+                default: "Side Conversation E-Mail Adresse",
+                deDE: "E-Mail Adresse der Side Conversation",
             },
             type: "cognigyText",
             params: {
@@ -307,7 +307,7 @@ export const createSideConversationNode = createNodeDescriptor({
         { type: "field", key: "subject" },
         { type: "field", key: "body" },
         { type: "field", key: "conversationType" },
-        { type: "field", key: "emailAddress" },
+        { type: "field", key: "scEmailAdress" },
         { type: "field", key: "slackWorkspaceId" },
         { type: "field", key: "slackChannelId" },
         { type: "field", key: "supportGroupId" },
@@ -328,7 +328,7 @@ export const createSideConversationNode = createNodeDescriptor({
             subject,
             body,
             conversationType,
-            emailAddress,
+            scEmailAdress,
             slackWorkspaceId,
             slackChannelId,
             supportGroupId,
@@ -345,12 +345,12 @@ export const createSideConversationNode = createNodeDescriptor({
         const subdomain = connectionType === "apiToken" ? tokenSubdomain : userSubdomain;
 
         let messageData: any = {
-            body,
             subject,
+            body,
         };
 
         if (conversationType === "email") {
-            messageData.to = [{ email: emailAddress }];
+            messageData.to = [{ email: scEmailAdress }];
         } else if (conversationType === "slack") {
             messageData.to = [{
                 slack_workspace_id: slackWorkspaceId,
