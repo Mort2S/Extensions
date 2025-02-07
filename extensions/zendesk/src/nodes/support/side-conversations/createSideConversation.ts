@@ -13,7 +13,7 @@ export interface ICreateSideConversationParams extends INodeFunctionBaseParams {
             subdomain: string;
         };
         apiTokenConnection: {
-            emailAddress: string; // Verbindung: API-Token Email (für Authentifizierung)
+            emailAddress: string;
             apiToken: string;
             subdomain: string;
         };
@@ -21,7 +21,7 @@ export interface ICreateSideConversationParams extends INodeFunctionBaseParams {
         subject: string;
         body: string;
         conversationType: string;
-        scEmailAdress: string; // Side Conversation E-Mail-Adresse (statt "emailAddress")
+        scEmailAdress: string;
         slackWorkspaceId: string;
         slackChannelId: string;
         supportGroupId: string;
@@ -36,12 +36,12 @@ export interface ICreateSideConversationParams extends INodeFunctionBaseParams {
 export const createSideConversationNode = createNodeDescriptor({
     type: "createSideConversation",
     defaultLabel: {
-        default: "Side Conversation erstellen",
+        default: "Create Side Conversation",
         deDE: "Side Conversation erstellen",
         esES: "Crear Side Conversation",
     },
     summary: {
-        default: "Erstellt eine neue Side Conversation in Zendesk",
+        default: "Creates a new side conversation in Zendesk",
         deDE: "Erstellt eine neue Side Conversation in Zendesk",
         esES: "Crea una nueva Side Conversation en Zendesk",
     },
@@ -115,7 +115,7 @@ export const createSideConversationNode = createNodeDescriptor({
             },
             type: "cognigyText",
             description: {
-                default: "Der Betreff der Side Conversation",
+                default: "Subject of the side conversation",
             },
             params: {
                 required: true,
@@ -124,13 +124,13 @@ export const createSideConversationNode = createNodeDescriptor({
         {
             key: "body",
             label: {
-                default: "Beschreibung",
+                default: "Description",
                 deDE: "Beschreibung",
                 esES: "Descripción",
             },
             type: "cognigyText",
             description: {
-                default: "Der Inhalt der Side Conversation",
+                default: "Content of the side conversation",
             },
             params: {
                 required: true,
@@ -139,7 +139,7 @@ export const createSideConversationNode = createNodeDescriptor({
         {
             key: "conversationType",
             label: {
-                default: "Side Conversation Typ",
+                default: "Side Conversation Type",
                 deDE: "Side Conversation Typ",
             },
             type: "select",
@@ -157,7 +157,7 @@ export const createSideConversationNode = createNodeDescriptor({
         {
             key: "scEmailAdress",
             label: {
-                default: "Side Conversation E-Mail Adresse",
+                default: "E-Mail adress for the side conversation",
                 deDE: "E-Mail Adresse der Side Conversation",
             },
             type: "cognigyText",
@@ -247,7 +247,7 @@ export const createSideConversationNode = createNodeDescriptor({
         {
             key: "storeLocation",
             label: {
-                default: "Wo soll das Ergebnis gespeichert werden?",
+                default: "Where to store the result",
                 deDE: "Wo soll das Ergebnis gespeichert werden?",
                 esES: "Dónde almacenar el resultado",
             },
@@ -264,7 +264,7 @@ export const createSideConversationNode = createNodeDescriptor({
         {
             key: "inputKey",
             label: {
-                default: "Input Key zum Speichern des Ergebnisses",
+                default: "Input Key to store Result",
                 deDE: "Input Key zum Speichern des Ergebnisses",
             },
             type: "cognigyText",
@@ -277,7 +277,7 @@ export const createSideConversationNode = createNodeDescriptor({
         {
             key: "contextKey",
             label: {
-                default: "Context Key zum Speichern des Ergebnisses",
+                default: "Context Key to store Result",
                 deDE: "Context Key zum Speichern des Ergebnisses",
             },
             type: "cognigyText",
@@ -292,7 +292,7 @@ export const createSideConversationNode = createNodeDescriptor({
         {
             key: "storage",
             label: {
-                default: "Speicheroption",
+                default: "storeLocation",
                 deDE: "Speicheroption",
             },
             defaultCollapsed: true,
@@ -366,7 +366,7 @@ export const createSideConversationNode = createNodeDescriptor({
             messageData.to = [{ msteams_channel_id: msteamsChannelId }];
         }
 
-        const data = JSON.stringify({ message: messageData });
+        const data = ({ message: messageData });
 
         try {
             const response = await axios({
@@ -391,7 +391,6 @@ export const createSideConversationNode = createNodeDescriptor({
         } catch (error: any) {
             if (storeLocation === "context") {
                 api.addToContext(contextKey, { error: error.message }, "simple");
-                api.addToContext(contextKey, data, "simple");
             } else {
                 api.addToInput(inputKey, { error: error.message });
             }
