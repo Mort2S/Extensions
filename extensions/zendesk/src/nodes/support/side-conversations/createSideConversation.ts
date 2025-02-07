@@ -17,7 +17,7 @@ export interface ICreateSideConversationParams extends INodeFunctionBaseParams {
             apiToken: string;
             subdomain: string;
         };
-        ticketId: string;
+        ticketId: number;
         subject: string;
         body: string;
         conversationType: string;
