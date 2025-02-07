@@ -13,7 +13,7 @@ import { getCurrentQueueActivity } from "./nodes/talk/getCurrentQueueActivity";
 import { startLiveChatNode } from "./nodes/liveChat/startLiveChat";
 import { zendeskChatAccountKeyConnection } from "./connections/zendeskChatAccountKeyConnection";
 import { zendeskAPITokenConnection } from "./connections/zendeskAPITokenConnection";
-
+import { createSideConversationNode } from "./nodes/support/side-conversations/createSideConversation";
 
 export default createExtension({
 	nodes: [
@@ -39,7 +39,9 @@ export default createExtension({
 
 		getPhoneNumbersNode,
 		requestCallbackNode,
-		getCurrentQueueActivity
+		getCurrentQueueActivity,
+
+		createSideConversation
 	],
 
 	connections: [
