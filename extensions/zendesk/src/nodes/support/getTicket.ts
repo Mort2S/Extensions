@@ -190,12 +190,16 @@ export const getTicketNode = createNodeDescriptor({
         const { ticketId, userConnection,
             apiTokenConnection,
             connectionType, storeLocation, contextKey, inputKey } = config;
-        const { username, password, subdomain: userSubdomain } = userConnection;
+        const { username, password, subdomain: userSubdomain } = userConnection
+        
         const {
             emailAddress,
             apiToken,
             subdomain: tokenSubdomain,
         } = apiTokenConnection;
+        
+        const subdomain = connectionType === "apiToken" ? tokenSubdomain : userSubdomain;
+        
         try {
 
             const response = await axios({
