@@ -40,3 +40,6 @@ All exposed Flow Nodes of this Extension follow the [Zendesk API](https://develo
   - [Get Phone Numbers](https://developer.zendesk.com/api-reference/voice/talk-api/phone_numbers/#list-phone-numbers)
   - [Request Callback](https://developer.zendesk.com/api-reference/voice/talk-api/callback_requests/)
   - [Get Queue Activity](https://developer.zendesk.com/api-reference/voice/talk-api/stats/#show-current-queue-activity)
+- *Search*
+  - [Search Tickets](https://developer.zendesk.com/api-reference/ticketing/ticket-management/search/)
+    - Pleade follow this Help Center Article to set up a [Search Query](https://developer.zendesk.com/documentation/ticketing/using-the-zendesk-api/searching-with-the-zendesk-api/)
