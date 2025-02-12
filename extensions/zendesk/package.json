@@ -13,7 +13,8 @@
 		"Talk",
 		"Suppot",
 		"Help Center",
-		"Live Chat"
+		"Live Chat",
+		"Search"
 	],
 	"repository": {
 		"type": "git",

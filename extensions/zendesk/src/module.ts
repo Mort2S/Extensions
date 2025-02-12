@@ -11,6 +11,7 @@ import { getPhoneNumbersNode } from "./nodes/talk/getPhoneNumbers";
 import { requestCallbackNode } from "./nodes/talk/requestCallback";
 import { getCurrentQueueActivity } from "./nodes/talk/getCurrentQueueActivity";
 import { startLiveChatNode } from "./nodes/liveChat/startLiveChat";
+import { searchTicketsNode } from "./nodes/search/searchTicket";
 import { zendeskChatAccountKeyConnection } from "./connections/zendeskChatAccountKeyConnection";
 import { zendeskAPITokenConnection } from "./connections/zendeskAPITokenConnection";
 
@@ -36,6 +37,8 @@ export default createExtension({
 		onNoAgentAvailable,
 
 		startLiveChatNode,
+
+		searchTicketsNode,
 
 		getPhoneNumbersNode,
 		requestCallbackNode,
