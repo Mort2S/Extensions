@@ -6,22 +6,22 @@ import axios from "axios";
 
 export interface IUpdateTicketParams extends INodeFunctionBaseParams {
   config: {
-    connectionType: string,
+    connectionType: string;
     userConnection: {
-      username: string,
-      password: string,
-      subdomain: string,
-    },
+      username: string;
+      password: string;
+      subdomain: string;
+    };
     apiTokenConnection: {
-      emailAddress: string,
-      apiToken: string,
-      subdomain: string,
-    },
-    ticketId: number,
-    ticket: any,
-    storeLocation: string,
-    contextKey: string,
-    inputKey: string,
+      emailAddress: string;
+      apiToken: string;
+      subdomain: string;
+    };
+    ticketId: number;
+    ticket: any;
+    storeLocation: string;
+    contextKey: string;
+    inputKey: string;
   };
 }
 export const updateTicketNode = createNodeDescriptor({
@@ -199,7 +199,7 @@ export const updateTicketNode = createNodeDescriptor({
   form: [
     { type: "field", key: "connectionType" },
     { type: "field", key: "userConnection" },
-    { type: "field", key: "apiTokenConnection" },   
+    { type: "field", key: "apiTokenConnection" },
     { type: "field", key: "ticketId" },
     { type: "field", key: "ticket" },
     { type: "section", key: "storage" },
@@ -239,11 +239,11 @@ export const updateTicketNode = createNodeDescriptor({
           "Content-Type": "application/json",
         },
         data: ticket,
-		auth: {
-			username:
-			  connectionType === "apiToken" ? `${emailAddress}/token` : username,
-			password: connectionType === "apiToken" ? apiToken : password,
-		  }
+        auth: {
+          username:
+            connectionType === "apiToken" ? `${emailAddress}/token` : username,
+          password: connectionType === "apiToken" ? apiToken : password,
+        },
       });
 
       if (storeLocation === "context") {

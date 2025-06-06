@@ -17,3 +17,4 @@ coverage/
 *.tar.gz
 /**/.DS_Store
 .history
+node_modules/

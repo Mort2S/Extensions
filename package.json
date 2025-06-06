@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@cognigy/extension-tools": "^0.16.4",
+    "axios": "^1.9.0",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "tslint": "^5.20.1"
+  }
+}

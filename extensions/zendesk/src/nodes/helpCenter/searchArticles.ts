@@ -6,27 +6,27 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export interface ISearchArticlesParams extends INodeFunctionBaseParams {
   config: {
-    connectionType: string,
+    connectionType: string;
     userConnection: {
-      username: string,
-      password: string,
-      subdomain: string,
-    },
+      username: string;
+      password: string;
+      subdomain: string;
+    };
     apiTokenConnection: {
-      emailAddress: string,
-      apiToken: string,
-      subdomain: string,
-    },
-    query: number,
-    storeLocation: string,
-    contextKey: string,
-    inputKey: string,
-    useBrandId: boolean,
-    brandId: string,
-    useLocale: boolean,
-    locale: string,
-    useFreeTextQuery: boolean,
-    freeTextQuery: string,
+      emailAddress: string;
+      apiToken: string;
+      subdomain: string;
+    };
+    query: number;
+    storeLocation: string;
+    contextKey: string;
+    inputKey: string;
+    useBrandId: boolean;
+    brandId: string;
+    useLocale: boolean;
+    locale: string;
+    useFreeTextQuery: boolean;
+    freeTextQuery: string;
   };
 }
 export const searchArticlesNode = createNodeDescriptor({
@@ -315,7 +315,7 @@ export const searchArticlesNode = createNodeDescriptor({
   form: [
     { type: "field", key: "connectionType" },
     { type: "field", key: "userConnection" },
-    { type: "field", key: "apiTokenConnection" },   
+    { type: "field", key: "apiTokenConnection" },
     { type: "field", key: "query" },
     { type: "field", key: "useBrandId" },
     { type: "field", key: "brandId" },
@@ -410,7 +410,7 @@ export const searchArticlesNode = createNodeDescriptor({
 
       if (response.data?.results?.length === 0) {
         const onErrorChild = childConfigs.find(
-          (child) => child.type === "onNotFoundArticles"
+          (child) => child.type === "onNotFoundArticles",
         );
         api.setNextNode(onErrorChild.id);
 
@@ -422,7 +422,7 @@ export const searchArticlesNode = createNodeDescriptor({
         }
       } else {
         const onSuccessChild = childConfigs.find(
-          (child) => child.type === "onFoundArticles"
+          (child) => child.type === "onFoundArticles",
         );
         api.setNextNode(onSuccessChild.id);
 
@@ -435,7 +435,7 @@ export const searchArticlesNode = createNodeDescriptor({
       }
     } catch (error) {
       const onErrorChild = childConfigs.find(
-        (child) => child.type === "onNotFoundArticles"
+        (child) => child.type === "onNotFoundArticles",
       );
       api.setNextNode(onErrorChild.id);
 
