@@ -231,6 +231,40 @@ export const updateTicketNode = createNodeDescriptor({
       connectionType === "apiToken" ? tokenSubdomain : userSubdomain;
 
     try {
+      let updateData = ticket;
+
+      if (ticket?.ticket?.tags && Array.isArray(ticket.ticket.tags)) {
+        try {
+          const getResponse = await axios({
+            method: "get",
+            url: `https://${subdomain}.zendesk.com/api/v2/tickets/${ticketId}`,
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            auth: {
+              username:
+                connectionType === "apiToken" ? `${emailAddress}/token` : username,
+              password: connectionType === "apiToken" ? apiToken : password,
+            },
+          });
+
+          const existingTags = Array.isArray(getResponse.data.ticket?.tags)
+            ? getResponse.data.ticket.tags
+            : [];
+
+          updateData = {
+            ...ticket,
+            ticket: {
+              ...ticket.ticket,
+              tags: Array.from(new Set([...existingTags, ...ticket.ticket.tags])),
+            },
+          };
+        } catch (e) {
+          // ignore errors when fetching existing tags
+        }
+      }
+
       const response = await axios({
         method: "put",
         url: `https://${subdomain}.zendesk.com/api/v2/tickets/${ticketId}`,
@@ -238,7 +272,7 @@ export const updateTicketNode = createNodeDescriptor({
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        data: ticket,
+        data: updateData,
         auth: {
           username:
             connectionType === "apiToken" ? `${emailAddress}/token` : username,
