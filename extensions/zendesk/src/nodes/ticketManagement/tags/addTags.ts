@@ -26,7 +26,7 @@ export interface ICreateTicketParams extends INodeFunctionBaseParams {
 }
 
 export const addTagsNode = createNodeDescriptor({
-  type: "createTicket",
+  type: "addTags",
   defaultLabel: {
     default: "Add tags",
   },
