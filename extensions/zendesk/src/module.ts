@@ -27,6 +27,9 @@ import { searchTicketsNode } from "./nodes/support/searchTicket";
 import { zendeskChatAccountKeyConnection } from "./connections/zendeskChatAccountKeyConnection";
 import { zendeskAPITokenConnection } from "./connections/zendeskAPITokenConnection";
 
+import { addTagsNode } from "./nodes/ticketManagement/tags/addTags";
+import { setTagsNode } from "./nodes/ticketManagement/tags/setTags";
+
 export default createExtension({
   nodes: [
     createTicketNode,
@@ -54,6 +57,9 @@ export default createExtension({
     getPhoneNumbersNode,
     requestCallbackNode,
     getCurrentQueueActivity,
+
+    addTagsNode,
+    setTagsNode,
   ],
 
   connections: [
