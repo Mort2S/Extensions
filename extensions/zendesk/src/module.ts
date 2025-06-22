@@ -39,7 +39,8 @@ export default createExtension({
     onNotFoundTicket,
 
     updateTicketNode,
-
+    attachFlowDataNode,
+    
     searchArticlesNode,
     onFoundArticles,
     onNotFoundArticles,
