@@ -19,6 +19,7 @@ import {
   onNotFoundTicket,
 } from "./nodes/support/getTicket";
 import { updateTicketNode } from "./nodes/support/updateTicket";
+import { attachFlowDataNode } from "./nodes/support/attachFlowData";
 import { getPhoneNumbersNode } from "./nodes/talk/getPhoneNumbers";
 import { requestCallbackNode } from "./nodes/talk/requestCallback";
 import { getCurrentQueueActivity } from "./nodes/talk/getCurrentQueueActivity";
@@ -60,6 +61,7 @@ export default createExtension({
 
     addTagsNode,
     setTagsNode,
+    attachFlowDataNode,
   ],
 
   connections: [
