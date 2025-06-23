@@ -26,9 +26,9 @@ import { startLiveChatNode } from "./nodes/liveChat/startLiveChat";
 import { searchTicketsNode } from "./nodes/support/searchTicket";
 import { zendeskChatAccountKeyConnection } from "./connections/zendeskChatAccountKeyConnection";
 import { zendeskAPITokenConnection } from "./connections/zendeskAPITokenConnection";
-
 import { addTagsNode } from "./nodes/ticketManagement/tags/addTags";
 import { setTagsNode } from "./nodes/ticketManagement/tags/setTags";
+import { attachFlowDataNode } from "./nodes/support/attachFlowData";
 
 export default createExtension({
   nodes: [
@@ -39,7 +39,8 @@ export default createExtension({
     onNotFoundTicket,
 
     updateTicketNode,
-
+    attachFlowDataNode,
+    
     searchArticlesNode,
     onFoundArticles,
     onNotFoundArticles,
