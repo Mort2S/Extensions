@@ -6,6 +6,11 @@ import {
   onAgentAvailable,
   onNoAgentAvailable,
 } from "./nodes/liveChat/checkLiveAgentAvailability";
+import {
+  checkLiveTransferCapacityNode,
+  onTransfersPossible,
+  onTransfersNotPossible,
+} from "./nodes/liveChat/checkLiveTransferCapacity";
 import { getCategoriesNode } from "./nodes/helpCenter/getCategories";
 import {
   onFoundArticles,
@@ -50,6 +55,10 @@ export default createExtension({
     checkLiveAgentAvailabilityNode,
     onAgentAvailable,
     onNoAgentAvailable,
+
+    checkLiveTransferCapacityNode,
+    onTransfersPossible,
+    onTransfersNotPossible,
 
     startLiveChatNode,
 
